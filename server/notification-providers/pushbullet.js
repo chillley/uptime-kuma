@@ -29,14 +29,14 @@ class Pushbullet extends NotificationProvider {
                 let downdata = {
                     "type": "note",
                     "title": "UptimeKuma Alert: " + monitorJSON["name"],
-                    "body": "[🔴 Down] " + heartbeatJSON["msg"] + "\nTime (UTC): " + heartbeatJSON["time"],
+                    "body": "[🔴 Down] " + heartbeatJSON["msg"] + "\nTime : " + heartbeatJSON["time"],
                 }
                 await axios.post(pushbulletUrl, downdata, config)
             } else if (heartbeatJSON["status"] == UP) {
                 let updata = {
                     "type": "note",
                     "title": "UptimeKuma Alert: " + monitorJSON["name"],
-                    "body": "[✅ Up] " + heartbeatJSON["msg"] + "\nTime (UTC): " + heartbeatJSON["time"],
+                    "body": "[✅ Up] " + heartbeatJSON["msg"] + "\nTime : " + heartbeatJSON["time"],
                 }
                 await axios.post(pushbulletUrl, updata, config)
             }

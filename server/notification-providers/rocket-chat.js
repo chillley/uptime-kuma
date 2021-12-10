@@ -31,9 +31,9 @@ class RocketChat extends NotificationProvider {
                 "icon_emoji": notification.rocketiconemo,
                 "attachments": [
                     {
-                        "title": "Uptime Kuma Alert *Time (UTC)*\n" + time,
+                        "title": "Uptime Kuma Alert *Time *\n" + time,
                         "text": "*Message*\n" + msg,
-                    }
+                    },
                 ]
             };
 

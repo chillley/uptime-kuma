@@ -79,7 +79,7 @@ class SMTP extends NotificationProvider {
 
         let bodyTextContent = msg;
         if (heartbeatJSON) {
-            bodyTextContent = `${msg}\nTime (UTC): ${heartbeatJSON["time"]}`;
+            bodyTextContent = `${msg}\nTime : ${heartbeatJSON["time"]}`;
         }
 
         // send mail with defined transport object

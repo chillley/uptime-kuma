@@ -51,7 +51,7 @@ class Mattermost extends NotificationProvider {
                                 },
                                 {
                                     short: true,
-                                    title: "Time (UTC)",
+                                    title: "Time ",
                                     value: heartbeatJSON["time"],
                                 },
                                 {
@@ -95,7 +95,7 @@ class Mattermost extends NotificationProvider {
                                 },
                                 {
                                     short: true,
-                                    title: "Time (UTC)",
+                                    title: "Time ",
                                     value: heartbeatJSON["time"],
                                 },
                                 {

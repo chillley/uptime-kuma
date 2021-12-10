@@ -25,6 +25,11 @@ const DingDing = require("./notification-providers/dingding");
 const Bark = require("./notification-providers/bark");
 const SerwerSMS = require("./notification-providers/serwersms");
 const Stackfield = require("./notification-providers/stackfield");
+const dayjs = require("dayjs");
+let timezone = require("dayjs/plugin/timezone");
+const utc = require("dayjs/plugin/utc");
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 class Notification {
 
@@ -65,7 +70,7 @@ class Notification {
         ];
 
         for (let item of list) {
-            if (! item.name) {
+            if (!item.name) {
                 throw new Error("Notification provider without name");
             }
 
@@ -87,34 +92,41 @@ class Notification {
      */
     static async send(notification, msg, monitorJSON = null, heartbeatJSON = null) {
         if (this.providerList[notification.type]) {
-            return this.providerList[notification.type].send(notification, msg, monitorJSON, heartbeatJSON);
+            let heartJson = { ...heartbeatJSON };
+            if (heartJson && heartJson["time"]) {
+                heartJson = {
+                    ...heartJson,
+                    time: dayjs(dayjs.utc(heartbeatJSON["time"])).tz("Asia/Shanghai").format("YYYY-MM-DD HH:mm:ss"),
+                };
+            }
+            return this.providerList[notification.type].send(notification, msg, monitorJSON, heartJson);
         } else {
             throw new Error("Notification type is not supported");
         }
     }
 
     static async save(notification, notificationID, userID) {
-        let bean
+        let bean;
 
         if (notificationID) {
             bean = await R.findOne("notification", " id = ? AND user_id = ? ", [
                 notificationID,
                 userID,
-            ])
+            ]);
 
-            if (! bean) {
-                throw new Error("notification not found")
+            if (!bean) {
+                throw new Error("notification not found");
             }
 
         } else {
-            bean = R.dispense("notification")
+            bean = R.dispense("notification");
         }
 
         bean.name = notification.name;
         bean.user_id = userID;
         bean.config = JSON.stringify(notification);
         bean.is_default = notification.isDefault || false;
-        await R.store(bean)
+        await R.store(bean);
 
         if (notification.applyExisting) {
             await applyNotificationEveryMonitor(bean.id, userID);
@@ -127,13 +139,13 @@ class Notification {
         let bean = await R.findOne("notification", " id = ? AND user_id = ? ", [
             notificationID,
             userID,
-        ])
+        ]);
 
-        if (! bean) {
-            throw new Error("notification not found")
+        if (!bean) {
+            throw new Error("notification not found");
         }
 
-        await R.trash(bean)
+        await R.trash(bean);
     }
 
     static checkApprise() {
@@ -146,24 +158,24 @@ class Notification {
 
 async function applyNotificationEveryMonitor(notificationID, userID) {
     let monitors = await R.getAll("SELECT id FROM monitor WHERE user_id = ?", [
-        userID
+        userID,
     ]);
 
     for (let i = 0; i < monitors.length; i++) {
         let checkNotification = await R.findOne("monitor_notification", " monitor_id = ? AND notification_id = ? ", [
             monitors[i].id,
             notificationID,
-        ])
+        ]);
 
-        if (! checkNotification) {
+        if (!checkNotification) {
             let relation = R.dispense("monitor_notification");
             relation.monitor_id = monitors[i].id;
             relation.notification_id = notificationID;
-            await R.store(relation)
+            await R.store(relation);
         }
     }
 }
 
 module.exports = {
     Notification,
-}
+};

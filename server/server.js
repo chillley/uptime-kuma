@@ -1,11 +1,16 @@
 console.log("Welcome to Uptime Kuma");
 const args = require("args-parser")(process.argv);
-const { sleep, debug, getRandomInt, genSecret } = require("../src/util");
+const {
+    sleep,
+    debug,
+    getRandomInt,
+    genSecret,
+} = require("../src/util");
 const config = require("./config");
 
 debug(args);
 
-if (! process.env.NODE_ENV) {
+if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = "production";
 }
 
@@ -41,7 +46,16 @@ console.log("Importing this project modules");
 debug("Importing Monitor");
 const Monitor = require("./model/monitor");
 debug("Importing Settings");
-const { getSettings, setSettings, setting, initJWTSecret, checkLogin, startUnitTest, FBSD, errorLog } = require("./util-server");
+const {
+    getSettings,
+    setSettings,
+    setting,
+    initJWTSecret,
+    checkLogin,
+    startUnitTest,
+    FBSD,
+    errorLog,
+} = require("./util-server");
 
 debug("Importing Notification");
 const { Notification } = require("./notification");
@@ -84,7 +98,7 @@ const disableFrameSameOrigin = !!process.env.UPTIME_KUMA_DISABLE_FRAME_SAMEORIGI
 // 2FA / notp verification defaults
 const twofa_verification_opts = {
     "window": 1,
-    "time": 30
+    "time": 30,
 };
 
 /**
@@ -106,7 +120,7 @@ if (sslKey && sslCert) {
     console.log("Server Type: HTTPS");
     server = https.createServer({
         key: fs.readFileSync(sslKey),
-        cert: fs.readFileSync(sslCert)
+        cert: fs.readFileSync(sslCert),
     }, app);
 } else {
     console.log("Server Type: HTTP");
@@ -117,10 +131,21 @@ const io = new Server(server);
 module.exports.io = io;
 
 // Must be after io instantiation
-const { sendNotificationList, sendHeartbeatList, sendImportantHeartbeatList, sendInfo } = require("./client");
+const {
+    sendNotificationList,
+    sendHeartbeatList,
+    sendImportantHeartbeatList,
+    sendInfo,
+} = require("./client");
 const { statusPageSocketHandler } = require("./socket-handlers/status-page-socket-handler");
 const databaseSocketHandler = require("./socket-handlers/database-socket-handler");
 const TwoFA = require("./2fa");
+
+const dayjs = require("dayjs");
+let timezone = require("dayjs/plugin/timezone");
+const utc = require("dayjs/plugin/utc");
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 app.use(express.json());
 
@@ -199,7 +224,7 @@ exports.entryPage = "dashboard";
     // Robots.txt
     app.get("/robots.txt", async (_request, response) => {
         let txt = "User-agent: *\nDisallow:";
-        if (! await setting("searchEngineIndex")) {
+        if (!await setting("searchEngineIndex")) {
             txt += " /";
         }
         response.setHeader("Content-Type", "text/plain");
@@ -294,7 +319,7 @@ exports.entryPage = "dashboard";
             console.log("Login");
 
             // Login Rate Limit
-            if (! await loginRateLimiter.pass(callback)) {
+            if (!await loginRateLimiter.pass(callback)) {
                 return;
             }
 
@@ -561,7 +586,7 @@ exports.entryPage = "dashboard";
             try {
                 checkLogin(socket);
 
-                let bean = await R.findOne("monitor", " id = ? ", [ monitor.id ]);
+                let bean = await R.findOne("monitor", " id = ? ", [monitor.id]);
 
                 if (bean.user_id !== socket.userID) {
                     throw new Error("Permission denied.");
@@ -803,7 +828,7 @@ exports.entryPage = "dashboard";
             try {
                 checkLogin(socket);
 
-                let bean = await R.findOne("monitor", " id = ? ", [ tag.id ]);
+                let bean = await R.findOne("monitor", " id = ? ", [tag.id]);
                 bean.name = tag.name;
                 bean.color = tag.color;
                 await R.store(bean);
@@ -825,7 +850,7 @@ exports.entryPage = "dashboard";
             try {
                 checkLogin(socket);
 
-                await R.exec("DELETE FROM tag WHERE id = ? ", [ tagID ]);
+                await R.exec("DELETE FROM tag WHERE id = ? ", [tagID]);
 
                 callback({
                     ok: true,
@@ -916,7 +941,7 @@ exports.entryPage = "dashboard";
             try {
                 checkLogin(socket);
 
-                if (! password.newPassword) {
+                if (!password.newPassword) {
                     throw new Error("Invalid new password");
                 }
 
@@ -974,7 +999,7 @@ exports.entryPage = "dashboard";
 
                 callback({
                     ok: true,
-                    msg: "Saved"
+                    msg: "Saved",
                 });
 
                 sendInfo(socket);
@@ -1033,7 +1058,7 @@ exports.entryPage = "dashboard";
             try {
                 checkLogin(socket);
 
-                let msg = await Notification.send(notification, notification.name + " Testing");
+                let msg = await Notification.send(notification, notification.name + " Testing Time: " + dayjs(dayjs.utc()).tz("Asia/Shanghai").format("YYYY-MM-DD HH:mm:ss"));
 
                 callback({
                     ok: true,
@@ -1183,7 +1208,7 @@ exports.entryPage = "dashboard";
                                     ]);
 
                                     let tagId;
-                                    if (! tag) {
+                                    if (!tag) {
                                         // -> If it doesn't exist, create new tag from backup file
                                         let beanTag = R.dispense("tag");
                                         beanTag.name = oldTag.name;
@@ -1268,7 +1293,7 @@ exports.entryPage = "dashboard";
                 console.log(`Clear Heartbeats Monitor: ${monitorID} User ID: ${socket.userID}`);
 
                 await R.exec("DELETE FROM heartbeat WHERE monitor_id = ?", [
-                    monitorID
+                    monitorID,
                 ]);
 
                 await sendHeartbeatList(socket, monitorID, true, true);
@@ -1372,7 +1397,7 @@ async function checkOwner(userID, monitorID) {
         userID,
     ]);
 
-    if (! row) {
+    if (!row) {
         throw new Error("You do not own this monitor.");
     }
 }
@@ -1420,7 +1445,7 @@ async function getMonitorJSONList(userID) {
 }
 
 async function initDatabase(testMode = false) {
-    if (! fs.existsSync(Database.path)) {
+    if (!fs.existsSync(Database.path)) {
         console.log("Copying Database");
         fs.copyFileSync(Database.templatePath, Database.path);
     }
@@ -1436,7 +1461,7 @@ async function initDatabase(testMode = false) {
         "jwtSecret",
     ]);
 
-    if (! jwtSecretBean) {
+    if (!jwtSecretBean) {
         console.log("JWT secret is not found, generate one.");
         jwtSecretBean = await initJWTSecret();
         console.log("Stored JWT secret into database");

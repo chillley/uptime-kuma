@@ -60,7 +60,7 @@ class Slack extends NotificationProvider {
                     },
                     {
                         "type": "mrkdwn",
-                        "text": "*Time (UTC)*\n" + time,
+                        "text": "*Time *\n" + time,
                     }],
                 }],
             };

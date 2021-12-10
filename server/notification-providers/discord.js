@@ -52,7 +52,7 @@ class Discord extends NotificationProvider {
                                 value: url,
                             },
                             {
-                                name: "Time (UTC)",
+                                name: "Time ",
                                 value: heartbeatJSON["time"],
                             },
                             {
@@ -87,7 +87,7 @@ class Discord extends NotificationProvider {
                                 value: url.startsWith("http") ? "[Visit Service](" + url + ")" : url,
                             },
                             {
-                                name: "Time (UTC)",
+                                name: "Time ",
                                 value: heartbeatJSON["time"],
                             },
                             {

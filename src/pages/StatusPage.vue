@@ -304,7 +304,7 @@ export default {
         },
 
         tagsVisible() {
-            return this.config.statusPageTags
+            return this.config.statusPageTags;
         },
 
         logoClass() {
@@ -500,10 +500,10 @@ export default {
                         // We only include the tags if visible so we can reuse the logic to hide the tags on disable
                         return {
                             ...monitor,
-                            tags: newState ? this.$root.monitorList[monitor.id].tags : []
-                        }
-                    })
-                }
+                            tags: newState ? this.$root.monitorList[monitor.id].tags : [],
+                        };
+                    }),
+                };
             });
         },
 
