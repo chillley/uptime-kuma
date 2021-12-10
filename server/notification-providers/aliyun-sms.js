@@ -1,5 +1,8 @@
 const NotificationProvider = require("./notification-provider");
-const { DOWN, UP } = require("../../src/util");
+const {
+    DOWN,
+    UP,
+} = require("../../src/util");
 const { default: axios } = require("axios");
 const Crypto = require("crypto");
 const qs = require("qs");
