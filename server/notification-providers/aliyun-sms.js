@@ -9,14 +9,14 @@ class AliyunSMS extends NotificationProvider {
 
     async send(notification, msg, monitorJSON = null, heartbeatJSON = null) {
         let okMsg = "Sent Successfully.";
-
+        console.info("SEND AliyunSMS Start");
         try {
             if (heartbeatJSON != null) {
                 let msgBody = JSON.stringify({
                     name: monitorJSON["name"],
                     time: heartbeatJSON["time"],
                     status: this.statusToString(heartbeatJSON["status"]),
-                    msg: heartbeatJSON["msg"],
+                    msg: heartbeatJSON["msg"].substring(0, 34),
                 });
                 if (this.sendSms(notification, msgBody)) {
                     return okMsg;
@@ -38,6 +38,7 @@ class AliyunSMS extends NotificationProvider {
     }
 
     async sendSms(notification, msgbody) {
+        console.info("SEND AliyunSMS Ing");
         let params = {
             PhoneNumbers: notification.phonenumber,
             TemplateCode: notification.templateCode,
@@ -65,8 +66,11 @@ class AliyunSMS extends NotificationProvider {
 
         let result = await axios(config);
         if (result.data.Message == "OK") {
+            console.info("SEND AliyunSMS Success");
             return true;
         }
+        console.info("SEND AliyunSMS Fail");
+        console.info(JSON.stringify(result.data));
         return false;
     }
 
