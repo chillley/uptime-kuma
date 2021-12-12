@@ -10,6 +10,7 @@ const Settings = () => import("./pages/Settings.vue");
 import Setup from "./pages/Setup.vue";
 const StatusPage = () => import("./pages/StatusPage.vue");
 import Entry from "./pages/Entry.vue";
+import DashboardGroup from "./pages/DashboardGroup.vue";
 
 import Appearance from "./components/settings/Appearance.vue";
 import General from "./components/settings/General.vue";
@@ -110,6 +111,10 @@ const routes = [
     {
         path: "/status-page",
         component: StatusPage,
+    },
+    {
+        path: "/dashboard-page",
+        component: DashboardGroup,
     },
     {
         path: "/status",

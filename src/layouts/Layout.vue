@@ -19,6 +19,11 @@
 
             <ul class="nav nav-pills">
                 <li class="nav-item me-2">
+                    <a href="/dashboard-page" class="nav-link status-page">
+                        <font-awesome-icon icon="stream" /> {{ '看板页' }}
+                    </a>
+                </li>
+                <li class="nav-item me-2">
                     <a href="/status" class="nav-link status-page">
                         <font-awesome-icon icon="stream" /> {{ $t("Status Page") }}
                     </a>
