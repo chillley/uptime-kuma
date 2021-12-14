@@ -59,11 +59,12 @@
 </template>
 
 <script lang="ts">
-import { Modal } from "bootstrap"
+import {Modal} from "bootstrap";
 import Confirm from "./Confirm.vue";
-import VueQrcode from "vue-qrcode"
-import { useToast } from "vue-toastification"
-const toast = useToast()
+import VueQrcode from "vue-qrcode";
+import {useToast} from "vue-toastification";
+
+const toast = useToast();
 
 export default {
     components: {
@@ -79,23 +80,23 @@ export default {
             twoFAStatus: null,
             token: null,
             showURI: false,
-        }
+        };
     },
     mounted() {
-        this.modal = new Modal(this.$refs.modal)
+        this.modal = new Modal(this.$refs.modal);
         this.getStatus();
     },
     methods: {
         show() {
-            this.modal.show()
+            this.modal.show();
         },
 
         confirmEnableTwoFA() {
-            this.$refs.confirmEnableTwoFA.show()
+            this.$refs.confirmEnableTwoFA.show();
         },
 
         confirmDisableTwoFA() {
-            this.$refs.confirmDisableTwoFA.show()
+            this.$refs.confirmDisableTwoFA.show();
         },
 
         prepare2FA() {
@@ -109,7 +110,7 @@ export default {
                 } else {
                     toast.error(res.msg);
                 }
-            })
+            });
         },
 
         save2FA() {
@@ -119,13 +120,13 @@ export default {
                 this.processing = false;
 
                 if (res.ok) {
-                    this.$root.toastRes(res)
+                    this.$root.toastRes(res);
                     this.getStatus();
                     this.modal.hide();
                 } else {
                     toast.error(res.msg);
                 }
-            })
+            });
         },
 
         disable2FA() {
@@ -135,13 +136,13 @@ export default {
                 this.processing = false;
 
                 if (res.ok) {
-                    this.$root.toastRes(res)
+                    this.$root.toastRes(res);
                     this.getStatus();
                     this.modal.hide();
                 } else {
                     toast.error(res.msg);
                 }
-            })
+            });
         },
 
         verifyToken() {
@@ -151,7 +152,7 @@ export default {
                 } else {
                     toast.error(res.msg);
                 }
-            })
+            });
         },
 
         getStatus() {
@@ -161,10 +162,10 @@ export default {
                 } else {
                     toast.error(res.msg);
                 }
-            })
+            });
         },
     },
-}
+};
 </script>
 
 <style lang="scss" scoped>

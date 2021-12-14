@@ -73,6 +73,7 @@ class TimeLogger {
     constructor() {
         this.startTime = dayjs().valueOf();
     }
+
     print(name) {
         if (exports.isDev && process.env.TIMELOGGER === "1") {
             console.log(name + ": " + (dayjs().valueOf() - this.startTime) + "ms");
@@ -106,7 +107,7 @@ exports.getRandomInt = getRandomInt;
  * Returns either the NodeJS crypto.randomBytes() function or its
  * browser equivalent implemented via window.crypto.getRandomValues()
  */
-let getRandomBytes = ((typeof window !== 'undefined' && window.crypto)
+let getRandomBytes = ((typeof window !== "undefined" && window.crypto)
     // Browsers
     ? function () {
         return (numBytes) => {
@@ -124,15 +125,17 @@ let getRandomBytes = ((typeof window !== 'undefined' && window.crypto)
 function getCryptoRandomInt(min, max) {
     // synchronous version of: https://github.com/joepie91/node-random-number-csprng
     const range = max - min;
-    if (range >= Math.pow(2, 32))
+    if (range >= Math.pow(2, 32)) {
         console.log("Warning! Range is too large.");
+    }
     let tmpRange = range;
     let bitsNeeded = 0;
     let bytesNeeded = 0;
     let mask = 1;
     while (tmpRange > 0) {
-        if (bitsNeeded % 8 === 0)
+        if (bitsNeeded % 8 === 0) {
             bytesNeeded += 1;
+        }
         bitsNeeded += 1;
         mask = mask << 1 | 1;
         tmpRange = tmpRange >>> 1;
@@ -145,8 +148,7 @@ function getCryptoRandomInt(min, max) {
     randomValue = randomValue & mask;
     if (randomValue <= range) {
         return min + randomValue;
-    }
-    else {
+    } else {
         return getCryptoRandomInt(min, max);
     }
 }

@@ -99,7 +99,6 @@ class Notification {
                     time: dayjs(dayjs.utc(heartbeatJSON["time"])).tz("Asia/Shanghai").format("YYYY-MM-DD HH:mm:ss"),
                 };
             }
-
             return this.providerList[notification.type].send(notification, msg, monitorJSON, heartJson);
         } else {
             throw new Error("Notification type is not supported");

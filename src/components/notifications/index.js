@@ -1,4 +1,4 @@
-import STMP from "./SMTP.vue"
+import STMP from "./SMTP.vue";
 import Telegram from "./Telegram.vue";
 import Discord from "./Discord.vue";
 import Webhook from "./Webhook.vue";
@@ -23,7 +23,7 @@ import AliyunSMS from "./AliyunSms.vue";
 import DingDing from "./DingDing.vue";
 import Bark from "./Bark.vue";
 import SerwerSMS from "./SerwerSMS.vue";
-import Stackfield from './Stackfield.vue';
+import Stackfield from "./Stackfield.vue";
 
 /**
  * Manage all notification form.
@@ -57,6 +57,6 @@ const NotificationFormList = {
     "Bark": Bark,
     "serwersms": SerwerSMS,
     "stackfield": Stackfield,
-}
+};
 
-export default NotificationFormList
+export default NotificationFormList;

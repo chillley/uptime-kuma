@@ -22,7 +22,7 @@ class Bark extends NotificationProvider {
 
     async send(notification, msg, monitorJSON = null, heartbeatJSON = null) {
         try {
-            var barkEndpoint = notification.barkEndpoint;
+            let barkEndpoint = notification.barkEndpoint;
 
             // check if the endpoint has a "/" suffix, if so, delete it first
             if (barkEndpoint.endsWith("/")) {

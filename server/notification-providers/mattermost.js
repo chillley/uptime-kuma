@@ -15,8 +15,8 @@ class Mattermost extends NotificationProvider {
                 let mattermostTestData = {
                     username: mattermostUserName,
                     text: msg,
-                }
-                await axios.post(notification.mattermostWebhookUrl, mattermostTestData)
+                };
+                await axios.post(notification.mattermostWebhookUrl, mattermostTestData);
                 return okMsg;
             }
 

@@ -3,17 +3,17 @@
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
                 <router-link to="/dashboard" class="nav-link">
-                   服务监控
+                    服务监控
                 </router-link>
             </div>
         </nav>
         <div class="main-container">
-            <div class="row" v-for="item in $root.publicGroupList">
+            <div v-for="item in $root.publicGroupList" class="row">
                 <h5>
                     {{ item.name }}
                 </h5>
                 <div class="row">
-                    <div class="card mb-3 col server-card" v-for="row in item.monitorList">
+                    <div v-for="row in item.monitorList" class="card mb-3 col server-card">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <Uptime :monitor="row" type="24" :pill="true"/>
@@ -25,7 +25,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 

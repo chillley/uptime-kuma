@@ -39,9 +39,9 @@ export default {
             } else {
                 return `${this.item.name}: ${this.item.value}`;
             }
-        }
-    }
-}
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>

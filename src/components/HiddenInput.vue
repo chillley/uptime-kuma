@@ -51,15 +51,15 @@ export default {
     data() {
         return {
             visibility: "password",
-        }
+        };
     },
     computed: {
         model: {
             get() {
-                return this.modelValue
+                return this.modelValue;
             },
             set(value) {
-                this.$emit("update:modelValue", value)
+                this.$emit("update:modelValue", value);
             }
         }
     },
@@ -73,6 +73,6 @@ export default {
         hideInput() {
             this.visibility = "password";
         },
-    }
-}
+    },
+};
 </script>
