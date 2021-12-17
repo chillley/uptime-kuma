@@ -13,7 +13,7 @@ It is a self-hosted monitoring tool like "Uptime Robot".
 
 ## 🥔 Live Demo
 
-Try it!
+Try it !
 
 https://demo.uptime.kuma.pet
 
