@@ -1,7 +1,7 @@
 <template>
     <div class="server-card">
         <div class="server-card-content" :class="`bg-${color}`">
-            <div class="ps-3 pt-2 server-card-content-name">
+            <div class="ps-3 pt-2 pe-2 server-card-content-name">
                 {{ monitor.name }}
             </div>
             <div class="ps-3 pt-2 d-flex align-items-center">

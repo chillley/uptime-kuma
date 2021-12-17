@@ -37,5 +37,6 @@ export default {
     white-space: nowrap;
     min-width: 58px;
     text-align: center;
+    color: #fff !important;
 }
 </style>

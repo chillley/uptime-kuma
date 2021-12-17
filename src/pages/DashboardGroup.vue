@@ -1,9 +1,9 @@
 <template>
     <div class="dashboard-group d-flex flex-column">
-        <header class="d-flex dashboard-header justify-content-center align-items-center p-3">
-            <router-link to="/dashboard" class="d-flex  align-items-center mb-3 mb-md-0  text-dark text-decoration-none">
+        <header class="d-flex dashboard-header justify-content-center align-items-center p-3 ">
+            <router-link to="/dashboard" class="d-flex  align-items-center mb-3 mb-md-0  text-decoration-none">
                 <!--                <font-awesome-icon icon="tachometer-alt" class="m-3"/>-->
-                服务监控
+                <span class="header-title">服务监控</span>
             </router-link>
         </header>
         <div class="main-container d-flex flex-column p-3 ">
@@ -42,7 +42,7 @@ export default {
     },
     computed: {
         groupPublicGroupList() {
-            return _u.chunk(this.$root.publicGroupList, 2);
+            return _u.chunk(this.$root.publicGroupList, 3);
         },
     },
     mounted() {
@@ -78,13 +78,17 @@ export default {
 .dashboard-group {
     width: 100%;
     height: 100vh;
-    background: #eaf2ff;
-    color: #0f0e5c;
+    background: #000845;
+
     flex-wrap: nowrap;
+
+    .header-title {
+        color: #eaf2ff !important;
+    }
 
     .dashboard-header {
         height: 80px;
-        background: #fff;
+        background: #000845;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
         font-weight: bold;
         font-size: 30px;
@@ -96,12 +100,13 @@ export default {
 
     .main-card {
         width: 100%;
-        background: #fff;
+        background: #1e255c;
+        color: #eaf2ff;
     }
 
     .main-card-top-border {
         width: 100%;
-        height: 4px;
+        height: 0;
         background: #35aa87;
     }
 
