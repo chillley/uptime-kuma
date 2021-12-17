@@ -38,7 +38,7 @@
 
     <div class="mb-3">
         <label for="from-email" class="form-label">{{ $t("From Email") }}</label>
-        <input id="from-email" v-model="$parent.notification.smtpFrom" type="text" class="form-control" required autocomplete="false" placeholder="&quot;Uptime Kuma&quot; &lt;example@kuma.pet&gt;">
+        <input id="from-email" v-model="$parent.notification.smtpFrom" type="text" class="form-control" required autocomplete="false" placeholder="&quot;智引服务监控平台&quot; &lt;example@kuma.pet&gt;">
         <div class="form-text">
         </div>
     </div>

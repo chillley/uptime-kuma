@@ -7747,3 +7747,8 @@ zwitch@^1.0.0:
   version "1.0.5"
   resolved "https://registry.npm.taobao.org/zwitch/download/zwitch-1.0.5.tgz#d11d7381ffed16b742f6af7b3f223d5cd9fe9920"
   integrity sha1-0R1zgf/tFrdC9q97PyI9XNn+mSA=
+
+zy-utils@^1.0.53:
+  version "1.0.53"
+  resolved "http://develop.zhiyin-tech.com/verdaccio/zy-utils/-/zy-utils-1.0.53.tgz#9e399bed3189d10a06b9c2819b4a4cf6c2bf7376"
+  integrity sha512-qk9ySn9ai7cggl8qXDUU3d5Ny5FXBvHwIGmPpieMR1IZONwA+gCTQrfGjnpxVsb5+aDQjCBALr39zk2L8N2ocQ==

@@ -29,13 +29,18 @@
         <div v-if="hasToken" class="mb-4">
             <div v-if="!enableEditMode">
                 <button class="btn btn-info me-2" @click="edit">
-                    <font-awesome-icon icon="edit" />
+                    <font-awesome-icon icon="edit"/>
                     {{ $t("Edit Status Page") }}
                 </button>
 
-                <a href="/dashboard" class="btn btn-info">
-                    <font-awesome-icon icon="tachometer-alt" />
+                <a href="/dashboard" class="btn btn-info me-2">
+                    <font-awesome-icon icon="tachometer-alt"/>
                     {{ $t("Go to Dashboard") }}
+                </a>
+
+                <a href="/dashboard-page" class="btn btn-info me-2">
+                    <font-awesome-icon icon="file"/>
+                    去看板页
                 </a>
             </div>
 
@@ -208,7 +213,7 @@
         </div>
 
         <footer class="mt-5 mb-4">
-            {{ $t("Powered by") }} <a target="_blank" href="https://github.com/louislam/uptime-kuma">{{ $t("Uptime Kuma" ) }}</a>
+            {{ $t("Powered by") }} <a target="_blank" href="https://github.com/louislam/uptime-kuma">{{ $t("uptime-kuma") }}</a>
         </footer>
     </div>
 </template>

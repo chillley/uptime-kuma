@@ -4,38 +4,39 @@
             <div class="placeholder"></div>
             <div class="search-wrapper">
                 <a v-if="searchText == ''" class="search-icon">
-                    <font-awesome-icon icon="search" />
+                    <font-awesome-icon icon="search"/>
                 </a>
                 <a v-if="searchText != ''" class="search-icon" @click="clearSearchText">
-                    <font-awesome-icon icon="times" />
+                    <font-awesome-icon icon="times"/>
                 </a>
-                <input v-model="searchText" class="form-control search-input" :placeholder="$t('Search...')" />
+                <input v-model="searchText" class="form-control search-input" :placeholder="$t('Search...')"/>
             </div>
         </div>
         <div class="monitor-list" :class="{ scrollbar: scrollbar }">
             <div v-if="Object.keys($root.monitorList).length === 0" class="text-center mt-3">
-                {{ $t("No Monitors, please") }} <router-link to="/add">{{ $t("add one") }}</router-link>
+                {{ $t("No Monitors, please") }}
+                <router-link to="/add">{{ $t("add one") }}</router-link>
             </div>
 
             <router-link v-for="(item, index) in sortedMonitorList" :key="index" :to="monitorURL(item.id)" class="item" :class="{ 'disabled': ! item.active }">
                 <div class="row">
                     <div class="col-9 col-md-8 small-padding" :class="{ 'monitorItem': $root.userHeartbeatBar == 'bottom' || $root.userHeartbeatBar == 'none' }">
                         <div class="info">
-                            <Uptime :monitor="item" type="24" :pill="true" />
+                            <Uptime :monitor="item" type="24" :pill="true"/>
                             {{ item.name }}
                         </div>
                         <div class="tags">
-                            <Tag v-for="tag in item.tags" :key="tag" :item="tag" :size="'sm'" />
+                            <Tag v-for="tag in item.tags" :key="tag" :item="tag" :size="'sm'"/>
                         </div>
                     </div>
                     <div v-show="$root.userHeartbeatBar == 'normal'" :key="$root.userHeartbeatBar" class="col-3 col-md-4">
-                        <HeartbeatBar size="small" :monitor-id="item.id" />
+                        <HeartbeatBar size="small" :monitor-id="item.id"/>
                     </div>
                 </div>
 
                 <div v-if="$root.userHeartbeatBar == 'bottom'" class="row">
                     <div class="col-12">
-                        <HeartbeatBar size="small" :monitor-id="item.id" />
+                        <HeartbeatBar size="small" :monitor-id="item.id"/>
                     </div>
                 </div>
             </router-link>
@@ -100,8 +101,8 @@ export default {
                 const loweredSearchText = this.searchText.toLowerCase();
                 result = result.filter(monitor => {
                     return monitor.name.toLowerCase().includes(loweredSearchText)
-                    || monitor.tags.find(tag => tag.name.toLowerCase().includes(loweredSearchText)
-                    || tag.value?.toLowerCase().includes(loweredSearchText));
+                        || monitor.tags.find(tag => tag.name.toLowerCase().includes(loweredSearchText)
+                            || tag.value?.toLowerCase().includes(loweredSearchText));
                 });
             }
 
@@ -114,7 +115,7 @@ export default {
         },
         clearSearchText() {
             this.searchText = "";
-        }
+        },
     },
 };
 </script>
