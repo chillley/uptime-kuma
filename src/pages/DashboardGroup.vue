@@ -7,7 +7,7 @@
             </router-link>
         </header>
         <div class="main-container d-flex flex-column p-3 ">
-            <div class="main-card flex-shrink-1  mb-3" v-for="item in groupPublicGroupList[pageIndex]">
+            <div v-for="item in groupPublicGroupList[pageIndex]" class="main-card flex-shrink-1  mb-3">
                 <div class="main-card-top-border">
                 </div>
                 <div class="main-card-header pt-3 ps-3">
@@ -15,7 +15,7 @@
                 </div>
                 <div class="main-card-body p-3">
                     <div class="row row-cols-auto">
-                        <ServerCard class="col mb-2" v-for="(monitor,index) in item.monitorList" :monitor="monitor" :key="index"/>
+                        <ServerCard v-for="(monitor,index) in item.monitorList" :key="index" class="col mb-2" :monitor="monitor"/>
                     </div>
                 </div>
             </div>
