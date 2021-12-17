@@ -20,7 +20,7 @@ module.exports = {
         "linebreak-style": ["error", "unix"],
         "camelcase": ["warn", {
             "properties": "never",
-            "ignoreImports": true
+            "ignoreImports": true,
         }],
         // override/add rules settings here, such as:
         // 'vue/no-unused-vars': 'error'
@@ -40,13 +40,14 @@ module.exports = {
         "vue/singleline-html-element-content-newline": "off",
         "vue/html-self-closing": "off",
         "vue/attribute-hyphenation": "off",     // This change noNL to "no-n-l" unexpectedly
+        "vue/require-v-for-key": "off",
         "no-multi-spaces": ["error", {
             ignoreEOLComments: true,
         }],
         "space-before-function-paren": ["error", {
             "anonymous": "always",
             "named": "never",
-            "asyncArrow": "always"
+            "asyncArrow": "always",
         }],
         "curly": "error",
         "object-curly-spacing": ["error", "always"],
@@ -79,25 +80,25 @@ module.exports = {
         //'prefer-template': 'error',
         "comma-dangle": ["warn", "only-multiline"],
         "no-empty": ["error", {
-            "allowEmptyCatch": true
+            "allowEmptyCatch": true,
         }],
         "no-control-regex": "off",
         "one-var": ["error", "never"],
-        "max-statements-per-line": ["error", { "max": 1 }]
+        "max-statements-per-line": ["error", { "max": 1 }],
     },
     "overrides": [
         {
-            "files": [ "src/languages/*.js", "src/icon.js" ],
+            "files": ["src/languages/*.js", "src/icon.js"],
             "rules": {
                 "comma-dangle": ["error", "always-multiline"],
-            }
+            },
         },
 
         // Override for jest puppeteer
         {
             "files": [
                 "**/*.spec.js",
-                "**/*.spec.jsx"
+                "**/*.spec.jsx",
             ],
             env: {
                 jest: true,
@@ -108,6 +109,6 @@ module.exports = {
                 context: true,
                 jestPuppeteer: true,
             },
-        }
-    ]
+        },
+    ],
 };

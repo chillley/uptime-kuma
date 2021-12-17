@@ -11,14 +11,22 @@ export default defineConfig({
         vue(),
         legacy({
             targets: ["ie > 11"],
-            additionalLegacyPolyfills: ["regenerator-runtime/runtime"]
-        })
+            additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
+        }),
     ],
     css: {
         postcss: {
             "parser": postCssScss,
             "map": false,
-            "plugins": [postcssRTLCSS]
-        }
+            "plugins": [postcssRTLCSS],
+        },
+    },
+    server: {
+        proxy: {
+            "^/api/": {
+                target: "http://localhost:3001",
+                changeOrigin: true,
+            },
+        },
     },
 });
