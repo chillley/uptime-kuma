@@ -1,6 +1,7 @@
 import { io } from "socket.io-client";
 import { useToast } from "vue-toastification";
 import jwt_decode from "jwt-decode";
+
 const toast = useToast();
 
 let socket;
@@ -8,14 +9,14 @@ let socket;
 const noSocketIOPages = [
     "/status-page",
     "/status",
-    "/"
+    "/",
 ];
 
 export default {
 
     data() {
         return {
-            info: { },
+            info: {},
             socket: {
                 token: null,
                 firstConnect: true,
@@ -26,11 +27,11 @@ export default {
             remember: (localStorage.remember !== "0"),
             allowLoginDialog: false,        // Allowed to show login dialog, but "loggedIn" have to be true too. This exists because prevent the login dialog show 0.1s in first before the socket server auth-ed.
             loggedIn: false,
-            monitorList: { },
-            heartbeatList: { },
-            importantHeartbeatList: { },
-            avgPingList: { },
-            uptimeList: { },
+            monitorList: {},
+            heartbeatList: {},
+            importantHeartbeatList: {},
+            avgPingList: {},
+            uptimeList: {},
             tlsInfoList: {},
             notificationList: [],
             connectionErrorMsg: "Cannot connect to the socket server. Reconnecting...",
@@ -51,7 +52,7 @@ export default {
             }
 
             // No need to connect to the socket.io for status page
-            if (! bypass && noSocketIOPages.includes(location.pathname)) {
+            if (!bypass && noSocketIOPages.includes(location.pathname)) {
                 return;
             }
 
@@ -104,7 +105,7 @@ export default {
             });
 
             socket.on("heartbeat", (data) => {
-                if (! (data.monitorID in this.heartbeatList)) {
+                if (!(data.monitorID in this.heartbeatList)) {
                     this.heartbeatList[data.monitorID] = [];
                 }
 
@@ -121,16 +122,18 @@ export default {
                     if (data.status === 0) {
                         toast.error(`[${this.monitorList[data.monitorID].name}] [DOWN] ${data.msg}`, {
                             timeout: false,
+                            id: data.monitorID,
                         });
                     } else if (data.status === 1) {
                         toast.success(`[${this.monitorList[data.monitorID].name}] [Up] ${data.msg}`, {
                             timeout: 20000,
                         });
+                        toast.dismiss(data.monitorID);
                     } else {
                         toast(`[${this.monitorList[data.monitorID].name}] ${data.msg}`);
                     }
 
-                    if (! (data.monitorID in this.importantHeartbeatList)) {
+                    if (!(data.monitorID in this.importantHeartbeatList)) {
                         this.importantHeartbeatList[data.monitorID] = [];
                     }
 
@@ -139,7 +142,7 @@ export default {
             });
 
             socket.on("heartbeatList", (monitorID, data, overwrite = false) => {
-                if (! (monitorID in this.heartbeatList) || overwrite) {
+                if (!(monitorID in this.heartbeatList) || overwrite) {
                     this.heartbeatList[monitorID] = data;
                 } else {
                     this.heartbeatList[monitorID] = data.concat(this.heartbeatList[monitorID]);
@@ -159,7 +162,7 @@ export default {
             });
 
             socket.on("importantHeartbeatList", (monitorID, data, overwrite) => {
-                if (! (monitorID in this.importantHeartbeatList) || overwrite) {
+                if (!(monitorID in this.importantHeartbeatList) || overwrite) {
                     this.importantHeartbeatList[monitorID] = data;
                 } else {
                     this.importantHeartbeatList[monitorID] = data.concat(this.importantHeartbeatList[monitorID]);
@@ -198,7 +201,7 @@ export default {
 
                         // Timeout if it is not actually auto login
                         setTimeout(() => {
-                            if (! this.loggedIn) {
+                            if (!this.loggedIn) {
                                 this.allowLoginDialog = true;
                                 this.$root.storage().removeItem("token");
                             }
@@ -266,7 +269,7 @@ export default {
             socket.emit("loginByToken", token, (res) => {
                 this.allowLoginDialog = true;
 
-                if (! res.ok) {
+                if (!res.ok) {
                     this.logout();
                 } else {
                     this.loggedIn = true;
@@ -275,7 +278,8 @@ export default {
         },
 
         logout() {
-            socket.emit("logout", () => { });
+            socket.emit("logout", () => {
+            });
             this.storage().removeItem("token");
             this.socket.token = null;
             this.loggedIn = false;
@@ -303,8 +307,9 @@ export default {
         },
 
         getMonitorList(callback) {
-            if (! callback) {
-                callback = () => { };
+            if (!callback) {
+                callback = () => {
+                };
             }
             socket.emit("getMonitorList", callback);
         },
@@ -341,7 +346,7 @@ export default {
 
         getMonitorBeats(monitorID, period, callback) {
             socket.emit("getMonitorBeats", monitorID, period, callback);
-        }
+        },
     },
 
     computed: {
@@ -368,7 +373,7 @@ export default {
             for (let monitorID in this.lastHeartbeatList) {
                 let lastHeartBeat = this.lastHeartbeatList[monitorID];
 
-                if (! lastHeartBeat) {
+                if (!lastHeartBeat) {
                     result[monitorID] = unknown;
                 } else if (lastHeartBeat.status === 1) {
                     result[monitorID] = {

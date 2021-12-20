@@ -38,8 +38,6 @@ export default {
 
         datetimeFormat(value, format) {
             if (value !== undefined && value !== "") {
-                console.log(value);
-                console.log(`UTC:${dayjs.utc(value).tz(this.timezone).format(format)}`);
                 return dayjs.utc(value).tz(this.timezone).format(format);
             }
             return "";

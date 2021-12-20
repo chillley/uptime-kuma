@@ -93,7 +93,9 @@ class Notification {
     static async send(notification, msg, monitorJSON = null, heartbeatJSON = null) {
         if (this.providerList[notification.type]) {
             let heartJson = { ...heartbeatJSON };
-            if (heartJson && heartJson["time"]) {
+            if (heartbeatJSON === null) {
+                heartJson = null;
+            } else if (heartJson && heartJson["time"]) {
                 heartJson = {
                     ...heartJson,
                     time: dayjs(dayjs.utc(heartbeatJSON["time"])).tz("Asia/Shanghai").format("YYYY-MM-DD HH:mm:ss"),
