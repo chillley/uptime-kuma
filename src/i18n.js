@@ -18,6 +18,7 @@ const languageList = {
     "ja": "日本語",
     "da-DK": "Danish (Danmark)",
     "sr": "Српски",
+    "sl-SI": "Slovenščina",
     "sr-latn": "Srpski",
     "sv-SE": "Svenska",
     "tr-TR": "Türkçe",
@@ -27,7 +28,7 @@ const languageList = {
     "pl": "Polski",
     "et-EE": "eesti",
     "vi": "Vietnamese",
-    "zh-TW": "繁體中文 (台灣)"
+    "zh-TW": "繁體中文 (台灣)",
 };
 
 let messages = {

@@ -1,19 +1,15 @@
 const github = require("@actions/github");
-
 (async () => {
     try {
         const token = process.argv[2];
         const issueNumber = process.argv[3];
         const username = process.argv[4];
-
         const client = github.getOctokit(token).rest;
-
         const issue = {
             owner: "louislam",
             repo: "uptime-kuma",
             number: issueNumber,
         };
-
         const labels = (
             await client.issues.listLabelsOnIssue({
                 owner: issue.owner,
@@ -21,23 +17,20 @@ const github = require("@actions/github");
                 issue_number: issue.number
             })
         ).data.map(({ name }) => name);
-
         if (labels.length === 0) {
             console.log("Bad format here");
-
             await client.issues.addLabels({
                 owner: issue.owner,
                 repo: issue.repo,
                 issue_number: issue.number,
                 labels: ["invalid-format"]
             });
-
             // Add the issue closing comment
             await client.issues.createComment({
                 owner: issue.owner,
                 repo: issue.repo,
                 issue_number: issue.number,
-                body: `@${username}: Hello! :wave:\n\nThis issue is being automatically closed because it does not follow the issue template. Please DO NOT open a blank issue`
+                body: `@${username}: Hello! :wave:\n\nThis issue is being automatically closed because it does not follow the issue template. Please DO NOT open a blank issue.`,
             });
 
             // Close the issue
@@ -53,5 +46,4 @@ const github = require("@actions/github");
     } catch (e) {
         console.log(e);
     }
-
 })();
