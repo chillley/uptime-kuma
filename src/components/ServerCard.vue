@@ -59,23 +59,31 @@ export default {
 };
 </script>
 
-<style scoped>
-.server-card-content {
-    min-width: 208px;
-    height: 100px;
-    color: #fff;
+<style scoped lang="scss">
+.server-card {
+
+
+    .server-card-content {
+        min-width: 208px;
+        height: 100px;
+        color: #fff;
+        border-radius: 12px;
+        opacity: 0.95;
+        box-shadow: 0 0 5px rgb(131 189 227);
+    }
+
+    .server-card-content-name {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .up-time {
+        font-size: 25px;
+        font-weight: bold;
+        color: #fff;
+        opacity: 1;
+        background: transparent !important;
+    }
 }
 
-.server-card-content-name {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.up-time {
-    font-size: 25px;
-    font-weight: bold;
-    color: #fff;
-    opacity: 1;
-    background: transparent !important;
-}
 </style>

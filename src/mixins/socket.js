@@ -7,8 +7,8 @@ const toast = useToast();
 let socket;
 
 const noSocketIOPages = [
-    "/status-page",
-    "/status",
+    // "/status-page",
+    // "/status",
     "/",
 ];
 

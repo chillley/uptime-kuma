@@ -277,7 +277,6 @@ textarea.form-control {
             color: $dark-font-color2;
         }
     }
-
 }
 
 /*
@@ -360,6 +359,7 @@ textarea.form-control {
         &.active {
             background-color: #cdf8f4;
         }
+
         .tags {
             // Removes margin to line up tags list with uptime percentage
             margin-left: -0.25rem;
@@ -417,7 +417,6 @@ textarea.form-control {
         color: #eee;
     }
     */
-
 }
 
 .action {
@@ -436,3 +435,9 @@ textarea.form-control {
 // Localization
 
 @import "localization.scss";
+
+
+@font-face {
+    font-family: electronicFont;
+    src: url(../../public/DS-DIGIT.TTF);
+}

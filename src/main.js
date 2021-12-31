@@ -16,6 +16,7 @@ import lang from "./mixins/lang";
 import { router } from "./router";
 import { appName } from "./util.ts";
 
+
 const app = createApp({
     mixins: [
         socket,
@@ -27,7 +28,7 @@ const app = createApp({
     ],
     data() {
         return {
-            appName: appName
+            appName: appName,
         };
     },
     render: () => h(App),
