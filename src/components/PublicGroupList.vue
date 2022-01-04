@@ -14,7 +14,7 @@
                         <font-awesome-icon v-if="editMode && showGroupDrag" icon="arrows-alt-v" class="action drag me-3"/>
                         <font-awesome-icon v-if="editMode" icon="times" class="action remove me-3" @click="removeGroup(group.index)"/>
                         <Editable v-model="group.element.name" :contenteditable="editMode" tag="span"/>
-                        <div style="float:right;" v-if="!editMode">
+                        <div style="float:right;" v-show="!editMode">
                             <button class="btn btn-light" style="margin-right: 20px;" @click="pauseDialog(group.element.monitorList)">
                                 <font-awesome-icon icon="pause"/>
                                 {{ $t("Pause") }}
@@ -113,14 +113,13 @@ export default {
         pauseDialog(groupList) {
             this.$refs.confirmPause.show();
             this.groupList = groupList;
-            console.log(toRaw(this.groupList));
         },
 
         onMonitorDisabled(id) {
-            // const monitorList = toRaw(this.$root.monitorList);
-            // console.log(monitorList)
-            // const monitor = monitorList.find(monitor => monitor.id === id);
-            return !this.$root.monitorList[id].active;
+            if (this.$root.monitorList[id]) {
+                return !this.$root.monitorList[id].active;
+            }
+            return 0;
         },
 
         resumeMonitor(groupList) {
