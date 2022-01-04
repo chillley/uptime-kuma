@@ -25,6 +25,7 @@ const DingDing = require("./notification-providers/dingding");
 const Bark = require("./notification-providers/bark");
 const SerwerSMS = require("./notification-providers/serwersms");
 const Stackfield = require("./notification-providers/stackfield");
+const QyWechat = require("./notification-providers/qy-wechat");
 const dayjs = require("dayjs");
 let timezone = require("dayjs/plugin/timezone");
 const utc = require("dayjs/plugin/utc");
@@ -67,6 +68,7 @@ class Notification {
             new Bark(),
             new SerwerSMS(),
             new Stackfield(),
+            new QyWechat(),
         ];
 
         for (let item of list) {
