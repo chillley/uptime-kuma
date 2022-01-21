@@ -4,7 +4,7 @@
             <router-link to="/dashboard" class="d-flex  align-items-center mb-3 mb-md-0  text-decoration-none">
                 <span class="header-title">服务监控</span>
             </router-link>
-            <div class="header-time">
+            <div class="header-time" v-if="!$root.isMobile">
                 {{ timeTips }}
             </div>
         </header>

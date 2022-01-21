@@ -59,17 +59,28 @@
         <div v-if="$root.isMobile" style="width: 100%; height: 60px;" />
         <nav v-if="$root.isMobile" class="bottom-nav">
             <router-link to="/dashboard" class="nav-link">
-                <div><font-awesome-icon icon="tachometer-alt" /></div>
+                <div>
+                    <font-awesome-icon icon="tachometer-alt"/>
+                </div>
                 {{ $t("Dashboard") }}
             </router-link>
-
+            <router-link to="/dashboard-page" class="nav-link">
+                <div>
+                    <font-awesome-icon icon="file"/>
+                </div>
+                {{ `看板页` }}
+            </router-link>
             <router-link to="/list" class="nav-link">
-                <div><font-awesome-icon icon="list" /></div>
+                <div>
+                    <font-awesome-icon icon="list"/>
+                </div>
                 {{ $t("List") }}
             </router-link>
 
             <router-link to="/add" class="nav-link">
-                <div><font-awesome-icon icon="plus" /></div>
+                <div>
+                    <font-awesome-icon icon="plus"/>
+                </div>
                 {{ $t("Add") }}
             </router-link>
 
@@ -154,7 +165,7 @@ export default {
 
     a {
         text-align: center;
-        width: 25%;
+        width: 20%;
         display: inline-block;
         height: 100%;
         padding: 8px 10px 0;
