@@ -15,6 +15,9 @@
                         <font-awesome-icon v-if="editMode" icon="times" class="action remove me-3" @click="removeGroup(group.index)"/>
                         <Editable v-model="group.element.name" :contenteditable="editMode" tag="span"/>
                         <div style="float:right;" v-show="!editMode">
+                            <button class="btn btn-primary" style="margin-right: 20px;" @click="setUpNotifications(group.element.monitorList)">
+                                {{ $t("Setup Notification") }}
+                            </button>
                             <button class="btn btn-light" style="margin-right: 20px;" @click="pauseDialog(group.element.monitorList)">
                                 <font-awesome-icon icon="pause"/>
                                 {{ $t("Pause") }}
@@ -72,6 +75,7 @@
             {{ $t("pauseMonitorMsg") }}
         </Confirm>
     </div>
+    <SetUpNotificationDialog ref="SetUpNotificationDialog"/>
 </template>
 
 <script>
@@ -81,6 +85,7 @@ import Uptime from "./Uptime.vue";
 import Tag from "./Tag.vue";
 import Confirm from "./Confirm.vue";
 import { toRaw } from "vue";
+import SetUpNotificationDialog from "./SetUpNotificationDialog.vue";
 
 export default {
     components: {
@@ -89,6 +94,7 @@ export default {
         Uptime,
         Tag,
         Confirm,
+        SetUpNotificationDialog,
     },
     props: {
         editMode: {
@@ -110,6 +116,12 @@ export default {
 
     },
     methods: {
+
+        setUpNotifications(groupList) {
+            this.groupList = groupList;
+            this.$refs.SetUpNotificationDialog.show(toRaw(groupList));
+        },
+
         pauseDialog(groupList) {
             this.$refs.confirmPause.show();
             this.groupList = groupList;
